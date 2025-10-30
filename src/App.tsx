@@ -1,8 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/welcome/home';
 import LoginPage from './pages/Login/Login';
+import ProductDetailPage from './pages/ProductDetails';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +15,10 @@ const router = createBrowserRouter([
       {
         index: true, // This makes HomePage the default page for '/'
         element: <HomePage />,
+      },
+      {
+        path: '/product/:productId',
+        element: <ProductDetailPage />,
       },
       // --- Add other pages that use the MainLayout here ---
       // {
@@ -35,7 +41,10 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <>
+      <RouterProvider router={router} />
+      <Toaster position="top-right" />
+    </>
   );
 }
 

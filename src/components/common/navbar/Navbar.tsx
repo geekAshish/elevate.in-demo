@@ -7,6 +7,7 @@ import {
   HiOutlineChevronRight,
 } from 'react-icons/hi';
 import SearchModal from './SearchModal';
+import CartSidebar from '../CartSideBar';
 
 /**
  * Mobile Menu Component
@@ -88,6 +89,10 @@ const MobileMenu = ({ isOpen, toggleMenu }) => {
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const openCart = () => setIsCartOpen(true);
+  const closeCart = () => setIsCartOpen(false);
 
   // Toggles the mobile menu
   const toggleMenu = () => {
@@ -100,16 +105,15 @@ const Navbar = () => {
 
   // Best Practice: Prevent body scroll when the mobile menu is open
   useEffect(() => {
-    if (isMenuOpen || isSearchOpen) {
+    if (isMenuOpen || isSearchOpen || isCartOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-    // Cleanup function
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [isMenuOpen, isSearchOpen]);
+  }, [isMenuOpen, isSearchOpen, isCartOpen]);
 
   return (
     <>
@@ -144,15 +148,15 @@ const Navbar = () => {
                 </span>
               </a>
               
-              <a
-                href="/cart"
+              <button
+                onClick={openCart}
                 className="flex items-center space-x-1 text-gray-600 hover:text-gray-900"
               >
                 <HiOutlineShoppingCart size={24} />
                 <span className="hidden sm:inline text-sm font-medium">
                   0 Items
                 </span>
-              </a>
+              </button>
               
             <button
                 onClick={toggleMenu}
@@ -171,6 +175,7 @@ const Navbar = () => {
       {/* Mobile Menu Component (Rendered conditionally) */}
       <MobileMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <SearchModal isOpen={isSearchOpen} onClose={closeSearch} />
+      <CartSidebar isOpen={isCartOpen} onClose={closeCart} />
     </>
   );
 };

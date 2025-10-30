@@ -69,8 +69,7 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    // Root element is no longer a link
-    <div className="group block overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-200 flex flex-col">
+    <div className="group overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-200 flex flex-col">
       
       {/* Link now wraps only image and text */}
       <a href={`/product/${product.id}`} className="block">
